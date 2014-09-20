@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>AGIC 2014</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- OVERRIDE -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background="images/bg-stars.jpg">
+          <h1>AGIC 2014</h1>
+          <h2>Online GIS Mapping without GIS Servers</h2>
+
+          <img style="border:0px solid red; background:none; box-shadow:none;padding:0;margin:0" src="images/zealot-trans.png">
+
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>Who dis?</h1>
+          <img height="150" src="images/jmf-where20.jpg">
+          <p>James Fee</p>
+          <p style="font-size:40%;">
+          <s>Business Development</s><br>
+          Web Developer<br>
+          Golfer<br>
+          PHXGeo Founder<br>
+        </p>
+    </section>
+    <section data-background="images/bg-stars.jpg">
+          <h1>Who dat over there?</h1>
+          <img height="150" src="images/dressedup.jpg">
+          <p>Sheldon McGee</p>
+          <p style="font-size:40%;">
+            Web Developer<br>
+            Build in the physical world with wood<br>
+            Arduino and Pi are cool<br>
+            AFOL<br>
+            GDG Organizer<br>
+          </p>
+
+          <aside class="notes">
+          </aside>
+          
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>Why No GIS Servers?</h1>
+          <p class="fragment">They are slow</p>
+          <p class="fragment">They <strike>are</strike> can be expensive to license</p>
+          <p class="fragment">They require you to use .NET, Java, C++</p>
+          <p class="fragment">They are middleware</p>
+          <p class="fragment">Not the future</p>
+
+          <aside class="notes">
+            What if the GeoServer guy is here!?! 
+            <br>
+            What about "easy to change styles, adapt to different base maps"?
+          </aside>
+
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+        <h2>Picture a normal GIS type of day...<h2>
+        </section>        
+        
+        <section data-background="images/i-got-this.gif">
+        
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h3>Email arrives:</h3>
+          <blockquote>Dear GIS Guy,<br>
+          <br>
+          I want to put data on a map and share it with people.  I need this done immediately and it must look like the Google Maps.
+          <br>
+          <br>
+          Dan the Engineer 
+          </bockquote>
+        </section>
+                
+        <section data-background="images/huh.jpg">
+        
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+        <h2>Setting up a GIS Server is a huge pain in the rear!<h2>
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h3>Steps to get GIS Server running</h3>
+          <ol>
+			<li class="fragment">Find setup disks or download from web
+            <li class="fragment">Check with IT guy to see if server is available
+            <li class="fragment">Install prerequisites such as TomCat
+            <li class="fragment">Apply patches
+        	<li class="fragment">Try and get administration settings to work
+        	<li class="fragment">Attempt to add data sources for maps
+        	<li class="fragment">Realize you forgot to do step 4 above
+        	<li class="fragment">Then...
+          </ol>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+        <h2>Dan the Engineer comes knocking...<h2>
+        </section>
+                
+        <section data-background="images/knock-knock.gif">
+        
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+        <h2>So what choices do we have?<h2>
+        </section>
+          
+        <section data-background="images/bg-stars.jpg">
+          <h1>Tiling</h1>
+          <p class="fragment">TileMill + MBTiles</p>
+          <p class="fragment">GeoServer and GeoWebCache</p>
+          <p class="fragment">Esri ArcGIS</p>
+          <p class="fragment">Mapnik (for those who roll their own)</p>
+          <p class="fragment">Google/OSM/etc</p>
+        </section>
+        
+        <section data-background="images/nathan-filliion-speechless.gif">
+          <h1>But James...</h1>
+          <!-- <img src="images/nathan-filliion-speechless.gif"> -->
+          <h3>Tiling only works for data that doesn't change.</h3>
+        </section>
+        
+        <section data-background="images/troy-abed-community.gif">
+          <h2>That's what databases are for!</h2>
+          <!-- <img src="images/troy-abed-community.gif"> -->
+          <h4>So let's use a spatial db to serve up the data!</h4>
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h2>GeoJSON</h2>
+          <h3>GeoJSON is a format for encoding a variety of geographic data structures.</h3>
+          <pre><code data-trim contenteditable>
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-112.46, 34.54]
+  },
+  "properties": {
+    "name": "Prescott, Arizona"
+  }
+}
+          </code></pre>
+        </section>
+        
+        <section data-background="images/kermit.gif">
+          <h1>Here's the plan</h1>
+          <!--  <img src="images/kermit.gif">  -->
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h1>The tech</h1>
+          <ul>
+            <li>Node.js
+            <li>PostGIS
+            <li>Some JS mapping library
+          </ul> 
+
+          <aside class="notes">
+          </aside>
+          
+        </section>    
+
+        <section data-background="images/nodejs-1024x768.png">
+          <!-- <h2>Node.js</h2> -->
+          <aside class="notes">
+            JAMES: Does intro about what node is/why
+          </aside>
+
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h2>PostGIS</h2>
+          <!-- <img width="200" style="float:left; margin-right:20px;" src="images/Logo_square_postgis.png"> -->
+          <img width="200" src="images/Logo_square_postgis.png">
+          <aside class="notes">
+            JAMES: Does intro about PostGIS
+          </aside>
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h2>Google Maps</h2>
+          <img src="images/googlemapsscreenshot.jpg" width="400">
+          <aside class="notes">
+            JAMES: Gives a shoutout to Google and GeoJSON
+          </aside>
+        </section>
+
+
+        <section data-background="images/serious-anne-wide.gif">
+          <p>Time to get serious</p>
+          <aside class="notes">
+            Handing over to Sheldon
+          </aside>
+
+        </section>
+
+        <!-- <section data-background="images/bg-stars.jpg"> -->
+        <section data-background="images/serious-anne-wide.gif">
+          <h1>Loading data into PostGIS</h1>
+          <pre><code data-trim contenteditable>
+// Make your database PostGIS Aware
+psql -U username -d mygisdb
+CREATE EXTENSION POSTGIS;
+
+// Use magic, free, cross-platform tool to export shape to sql
+shp2pgsql -s 4326 AZBoundary.shp AZBoundary > sql/AZBoundary.sql
+
+// import that into our database
+psql -h localhost -d mygisdb -U postgres -f sql/AZBoundary.sql
+
+// pull data out as GeOjSoN
+SELECT ST_AsGeoJson(ST_Transform(b.geom,4326)) as geojson
+          </code></pre>
+
+        </section>
+    
+        <section data-background="images/bg-stars.jpg">
+          <h2>Setting up Node.js</h2>
+          <pre><code data-trim contenteditable>
+// Don't need the latest but most people install from source on Linux
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+tar xzvf node-latest.tar.gz && cd node-v*
+
+// On Red Hat/Cent/Fedora? Use epel
+yum install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+yum install nodejs npm --enablerepo=epel
+          </code></pre>
+
+          <aside class="notes">
+            https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
+          </aside>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h3>NO! Not that kind of setup!</h3>
+          <h2>Setting up Node.js</h2>
+          <pre><code data-trim contenteditable>
+//get the repo . . . maybe put it in /var/www?
+git clone https://github.com/tooshel/node-gis-server
+
+//install dependancies . . . there are only two
+npm install
+          </code></pre>
+
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>Node.js</h1>
+          <p>Line by line!</p>
+
+          <pre><code data-trim contenteditable>
+var pg = require('pg');
+var geojson = require('../helpers/geojson');
+var jsonp = require('../helpers/jsonp');
+var settings = require('../settings');
+
+module.exports.controller = function(app) {
+
+  /* enable CORS */
+  app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+    next();
+  });
+
+  app.get('/vector/:schema/:table/:geom/intersect', function(req, res, next) {
+    var queryshape = ' {"type": "Point", "coordinates": [' + req.query['lng'] + ',' + req.query['lat'] + '] }';
+    var geom = req.params.geom.toLowerCase();
+    if ((geom != 'features') && (geom != 'geometry') && (geom != 'all')) {
+      res.status(404).send("Resource '" + geom + "' not found");
+      return;
+    }
+    var schemaname = req.params.schema;
+    var tablename = req.params.table;
+    var fullname = schemaname + '.' + tablename;
+    pg.connect(settings.database, function(err, client, done) {
+      // var spatialcol = 'wkb_geometry';
+      var spatialcol = 'geom';
+      var sql;
+      var coll;
+      if (geom == 'features') {
+        sql = 'select st_asgeojson(st_transform(' + spatialcol + ',4326)) as geojson, * from ' + tablename + ' where ST_INTERSECTS(' + spatialcol + ", ST_SetSRID(ST_GeomFromGeoJSON('" + queryshape + "'),4326));";
+        coll = {
+          type: 'FeatureCollection',
+          features: []
+        };
+        query = client.query(sql);
+      }
+
+      if (geom == 'all') {
+        sql = 'select st_asgeojson(st_transform(' + spatialcol + ',4326)) as geojson, * from ' + tablename;
+        coll = {
+          type: 'FeatureCollection',
+          features: []
+        };
+        query = client.query(sql);
+      }
+
+      query.on('row', function(result) {
+        var props = new Object;
+        if (!result) {
+          return res.send('No data found');
+        }
+        else {
+          if (geom == 'features' ||  geom == 'all') {
+            coll.features.push(geojson.getFeatureResult(result, spatialcol));
+          } else if (geom == 'geometry') {
+            var shape = JSON.parse(result.geojson);
+            coll.geometries.push(shape);
+          }
+        }
+      });
+
+      query.on('end', function(err, result) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(jsonp.getJsonP(req.query.callback, coll));
+        done();
+      });
+    });
+  });
+  app.get('/neighbor/:schema/:table/:geom/intersect', function(req, res, next) {
+    var queryshape = "'SRID=4326;POINT(" + req.query['lng'] +' ' + req.query['lat'] + ")'";
+    var geom = req.params.geom.toLowerCase();
+    if ((geom != 'features') && (geom != 'geometry')) {
+      res.status(404).send("Resource '" + geom + "' not found");
+      return;
+    }
+    var schemaname = req.params.schema;
+    var tablename = req.params.table;
+    var fullname = schemaname + '.' + tablename;
+    pg.connect(settings.database, function(err, client, done) {
+      var spatialcol = 'wkb_geometry';
+      var sql;
+      var coll;
+      if (geom == 'features') {
+        sql = 'SELECT ST_AsGeoJson(ST_Transform(b.' + spatialcol + ',4326)) as geojson, * from ' + tablename + ' as a, ' + tablename + ' as b where st_distance(a.' + spatialcol + ',b.' + spatialcol + ') < .00005 and ST_INTERSECTS(a.' + spatialcol + ', ST_GeographyFromText(' + queryshape + '));'
+        //sql = 'SELECT ST_AsGeoJson(ST_Transform(b.' + spatialcol + ',4326)) as geojson, * from ' + tablename + ' as a, ' + tablename + ' as b where st_touches(a.' + spatialcol + ',b.' + spatialcol + ') and ST_INTERSECTS(a.' + spatialcol + ', ST_GeographyFromText(' + queryshape + '));'
+        coll = {
+          type: 'FeatureCollection',
+          features: []
+        };
+        query = client.query(sql);
+      }
+
+      query.on('row', function(result) {
+        var props = new Object;
+        if (!result) {
+          return res.send('No data found');
+        }
+        else {
+          if (geom == 'features') {
+            coll.features.push(geojson.getFeatureResult(result, spatialcol));
+          } else if (geom == 'geometry') {
+            var shape = JSON.parse(result.geojson);
+            coll.geometries.push(shape);
+          }
+        }
+      });
+
+      query.on('end', function(err, result) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(jsonp.getJsonP(req.query.callback, coll));
+        done();
+      });
+    });
+  });
+
+};
+
+          </code></pre>
+          <aside class="notes">
+            JOKE: We're going over this, line by line.
+          </aside>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h2>Hosting the Application</h2>
+          <pre><code data-trim contenteditable>
+//Install pm2 (globally) 
+npm install -g pm2
+
+//use pm2 to start the server, it's listening on port 3000
+pm2 start server.js
+
+//you should probably put it all behind nginx and proxy to 3000
+//but in this case just used some iptables magic
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+          </code></pre>
+        </section>
+       
+        <section data-background="images/bg-stars.jpg">
+          <h3>Using GeoJSON with Google Maps:</h3>
+          <p>Google Maps Javascript API v3 Data Layer</p>
+          
+          <pre><code data-trim contenteditable>
+          map.data.loadGeoJson('http://localhost/prescott.json');
+          </code></pre>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h2>Leaflet too!</h2>
+          <pre><code data-trim contenteditable>
+            L.geoJson(geojsonFeature).addTo(map);
+          </code></pre>
+
+          <h2>And Openlayers . . . </h2>
+          <pre><code data-trim contenteditable>
+            var vectorSource = new ol.source.GeoJSON(.........
+          </code></pre>
+
+          <p>.loadGeoJson, .geoJson, .GeoJSON . . . <br>WE ARE ALL INDEPENDENT THINKERS<p>
+
+          <aside class="notes">
+            .loadGeoJson, .geoJson, .GeoJSON . . . it's the XMLHTTPRequest of our time . . . we need an abstraction from the abstraction.
+          </aside>
+
+          <aside class="notes">
+           Sheldon: Back to you James!
+          </aside>
+        </section>
+        
+        <section data-background="images/knowwhattodo.gif">
+        
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>GIS without GIS Servers!</h1>
+          <p class="fragment">Cheap Hosting</p>
+          <p class="fragment">PostGIS goodness</p>
+          <p class="fragment">JavaScript simplicity</p>
+          <p class="fragment">Load GIS data on Google Maps</p>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>The Demo</h1>
+          <h2><a href="http://agic2014.sunny.solutions/az.html" target="_blank">GIS in Google Maps</a></h2>
+          <h2><a href="http://localhost:3000/az.html" target="_blank">GIS in Google Maps (Local)</a></h2>
+        </section>
+
+        <section data-background="images/bg-stars.jpg">
+          <h1>Cons?</h1>
+
+          <p>More DOM elements . . . can be slow . . . but not forever</p>
+          <p>Mobile?</p>
+          <p></p>
+          <p></p>
+
+        </section>
+        
+        <section data-background="images/tennisball.gif">
+        
+        </section>
+        
+        <section data-background="images/bg-stars.jpg">
+          <h1>Fork it on GitHub</h1>
+          <a href="https://github.com/tooshel/node-gis-server/">
+          https://github.com/tooshel/node-gis-server/
+          </a>
+          <br>
+          which was a fork of
+          <br>
+          <a href="https://github.com/ManoMarks/node-gis-server/">
+          https://github.com/ManoMarks/node-gis-server/
+          </a>
+          <br>
+          which was a fork of
+          <br>
+          <a href="https://github.com/geobabbler/node-gis-server/">
+          https://github.com/geobabbler/node-gis-server/
+          </a>
+
+          <br>
+          <br>
+
+          <h2>Sharing is caring</h2>
+        </section>
+    
+        <section>
+          <h1>END</h1>
+          <h2>Questions?</h2>
+
+          <p>Or if you are shy catch us on twitter:  </p>
+          <ul>
+            <a target="_blank" href="https://twitter.com/cageyjames">@cageyjames</a>
+            <br>
+            <a target="_blank" href="https://twitter.com/tooshel">@tooshel</a>
+          </ul> 
+        </section>
+
+      </div>
+
+    </div>
+
+    <div class="footer_logo">&nbsp;&nbsp;&nbsp;&nbsp; @cageyjames &nbsp;&nbsp;&nbsp;<img src="images/urs-logo.png">&nbsp;&nbsp;&nbsp; @tooshel</div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
