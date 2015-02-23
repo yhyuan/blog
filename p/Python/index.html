@@ -122,7 +122,7 @@
         </section>
 
         <section>
-        <h2>Python Interpreter</h2>
+        <h2>Numeric operators</h2>
  					<pre><code data-trim contenteditable>
 python or C:\Python27\ArcGIS10.1\python
 Python 2.7.2 (default, Jun 12 2011, 15:08:59)
@@ -136,150 +136,288 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> 8 / 5.0
 1.6
 					</code></pre>
-        </section>        
-
+All the Python examples are cited from "Python Refresher in Edx BerkeleyX: CS188.1x Artificial Intelligence."
+        </section>
         <section>
-        <h2>Why don't we share GIS Data?</h2>
-        <img height="400" src="images/Capture6.png">
+        <h2>Boolean operators</h2>
+ 					<pre><code data-trim contenteditable>
+>>> 1==0 
+False 
+>>> not (1==0) 
+True 
+>>> (2==2) and (2==3) 
+False 
+>>> (2==2) or (2==3) 
+True
+					</code></pre>
         </section>
 
         <section>
-        <h2>Sharing GIS data is always good</h2>
-        <img height="400" src="images/reduce-cost.gif">
+        <h2>Strings</h2>
+ 					<pre><code data-trim contenteditable>
+>>> 'artificial' + "intelligence" 
+'artificialintelligence'
+>>> 'artificial'.upper()
+'ARTIFICIAL'
+>>> 'HELP'.lower()
+'help'
+>>> len('Help')
+4
+					</code></pre>
         </section>
 
         <section>
-        <h2>Sharing GIS data is always good</h2>
-        <img height="400" src="images/improve-quality.png">
+        <h2>Lists</h2>
+		Lists store a sequence of mutable items
+ 					<pre><code data-trim contenteditable>
+>>> fruits = ['apple','orange','pear','banana']
+>>> fruits[0] 
+'apple'
+>>> otherFruits = ['kiwi','strawberry']
+>>> fruits + otherFruits
+>>> ['apple', 'orange', 'pear', 'banana', 'kiwi', 'strawberry']
+					</code></pre>
         </section>
 
         <section>
-        <h2>Sharing GIS data can help you make money</h2>
-        <img height="400" src="images/Hot_Dog_Vendor_clipart_image.jpg">
+        <h2>List Indexing</h2>
+ 					<pre><code data-trim contenteditable>
+>>> fruits[-2]
+'pear'
+>>> fruits.pop()
+'banana'
+>>> fruits
+['apple', 'orange', 'pear']
+>>> fruits.append('grapefruit') 
+>>> fruits 
+['apple', 'orange', 'pear', 'grapefruit'] 
+>>> fruits[-1] = 'pineapple' 
+>>> fruits 
+['apple', 'orange', 'pear', 'pineapple']
+					</code></pre>
         </section>
 
         <section>
-        <h2>Sharing GIS data within an organization or among organizations</h2>
-        <h2><h2>
-        <img height="400" src="images/how-social-technology-trasforms-organizations.jpg">
+        <h2>List slice operator</h2>
+ 					<pre><code data-trim contenteditable>
+>>> fruits 
+['apple', 'orange', 'pear', 'pineapple']
+>>> fruits[0:2] 
+['apple', 'orange'] 
+>>> fruits[:3]
+['apple', 'orange', 'pear'] 
+>>> fruits[2:]
+['pear', 'pineapple'] 
+>>> len(fruits) 
+4
+					</code></pre>
         </section>
 
         <section>
-        <h2>Sharing GIS data with the public</h2>
-        <img height="400" src="images/Free-Image.jpg">
-        </section>
-
-        <section>
-        <h2>GIS data sharing organizations in Ontario</h2>
-           <ol>
-			<li class="fragment">In Ontario, we have OGDE (Ontario Geospatial Data Exchange). York University is a member of OGDE. </li>
-            <li class="fragment">OGDE is a community of organizations that voluntarily share and use digital geographic data about Ontario at no cost.</li>
-            <li class="fragment">OGDE contains the standard licence agreements, a metadata directory and data warehouse. </li>
-          </ol>
-        </section>
-
-        <section>
-        <h2>GIS data sharing organizations in Canada</h2>
-           <ol>
-			<li class="fragment">GeoGratis created by Natural Resources Canada http://www.geogratis.gc.ca</li>
-            <li class="fragment">Geobase: A federal, provincial and territorial government initiative created by the Canadian Council on Geomatics http://www.geobase.ca</li>
-            <li class="fragment">GeoConnections: http://geodiscover.cgdi.ca</li>
-			<li class="fragment">Atlas of Canada: http://atlas.nrcan.gc.ca</li>
-          </ol>
+        <h2>Lists of Lists</h2>
+ 					<pre><code data-trim contenteditable>
+>>> lstOfLsts = [['a','b','c'],[1,2,3],['one','two','three']] 
+>>> lstOfLsts[1][2] 
+3
+>>> lstOfLsts[0].pop()
+'c'
+>>> lstOfLsts
+[['a', 'b'],[1, 2, 3],['one', 'two', 'three']]
+					</code></pre>
         </section>
 
        <section>
-        <h2>Standards for GIS Data Sharing</h2>
-           <ol>
-			<li class="fragment">The Open Geospatial Consortium, Inc. (OGC) (http://www.opengeospatial.org)</li>
-			<li class="fragment">International Organization for Standardization (ISO) – (http://www.iso.org)</li>
-			<li class="fragment">Federal Geographic Data Committee (FGDC) - (http://www.fgdc.gov)</li>
-			<li class="fragment">Global Spatial Data Infrastructure (GSDI) - (http://www.gsdi.org)</li>			
-          </ol>
+        <h2>Tuples</h2>
+Like a list except that it is immutable once it is created (i.e. you cannot change its content once created)		
+ 					<pre><code data-trim contenteditable>
+>>> pair = (3,5)
+>>> pair[0]
+3
+>>> x,y = pair
+>>> x
+3
+>>> y
+5 
+>>> pair[1] = 6
+TypeError: object does not support item assignment
+					</code></pre>
+        </section>
+		
+       <section>
+        <h2>Sets</h2>
+serves as an unordered list with no duplicate items.		
+ 					<pre><code data-trim contenteditable>
+>>> shapes = ['circle','square','triangle','circle']
+>>> setOfShapes = set(shapes)
+>>> setOfShapes 
+set(['circle','square','triangle']) 
+>>> setOfShapes.add('polygon') 
+>>> setOfShapes 
+set(['circle','square','triangle','polygon']) 
+>>> 'circle' in setOfShapes 
+True 
+>>> favoriteShapes = ['circle','triangle','hexagon']
+>>> setOfFavoriteShapes = set(favoriteShapes)
+>>> setOfShapes - setOfFavoriteShapes 
+set(['square','polyon']) 
+>>> setOfShapes & setOfFavoriteShapes 
+set(['circle','triangle'])
+>>> setOfShapes | setOfFavoriteShapes 
+set(['circle','square','triangle','polygon','hexagon'])
+					</code></pre>
+        </section>
+       <section>
+        <h2>Dictionary</h2>
+stores a map from one type of object (the key) to another (the value). The key must be an immutable type (string, number, or tuple). The value can be any Python data type.	
+ 					<pre><code data-trim contenteditable>
+>>> studentIds = {'knuth': 42.0, 'turing': 56.0, 'nash': 92.0 }
+>>> studentIds['turing']
+56.0
+>>> studentIds['nash'] = 'ninety-two'
+>>> studentIds
+{'knuth': 42.0, 'turing': 56.0, 'nash': 'ninety-two'}
+>>> del studentIds['knuth']
+>>> studentIds
+{'turing': 56.0, 'nash': 'ninety-two'}
+					</code></pre>
+        </section>	
+
+       <section>
+        <h2>Dictionary</h2>
+ 					<pre><code data-trim contenteditable>
+>>> studentIds['knuth'] = [42.0,'forty-two']
+>>> studentIds
+{'knuth': [42.0, 'forty-two'], 'turing': 56.0, 'nash': 'ninety-two'}
+>>> studentIds.keys()
+['knuth', 'turing', 'nash']
+>>> studentIds.values()
+[[42.0, 'forty-two'], 56.0, 'ninety-two']
+>>> studentIds.items()
+[('knuth',[42.0, 'forty-two']), ('turing',56.0), ('nash','ninety-two')]
+>>> len(studentIds) 
+3
+					</code></pre>
+        </section>	
+
+       <section>
+        <h2>Writing Python Scripts</h2>
+Open the file called foreach.py and update it with the following code:
+ 					<pre><code data-trim contenteditable>
+# This is what a comment looks like 
+fruits = ['apples','oranges','pears','bananas']
+for fruit in fruits:
+    print fruit + ' for sale'
+
+fruitPrices = {'apples': 2.00, 'oranges': 1.50, 'pears': 1.75}
+for fruit, price in fruitPrices.items():
+    if price < 2.00:
+        print '%s cost %f a pound' % (fruit, price)
+    else:
+        print fruit + ' are too expensive!'
+					</code></pre>
+        </section>	
+
+       <section>
+        <h2>Writing Python Scripts</h2>
+ 					<pre><code data-trim contenteditable>
+[cs188-ta@nova ~/tutorial]$ python foreach.py
+apples for sale
+oranges for sale
+pears for sale
+bananas for sale
+oranges cost 1.500000 a pound
+pears cost 1.750000 a pound
+apples are too expensive!
+					</code></pre>
+        </section>	
+
+       <section>
+        <h2>Functional Programming: map & filter</h2>
+ 					<pre><code data-trim contenteditable>
+>>> map(lambda x: x * x, [1,2,3])
+[1, 4, 9]
+>>> filter(lambda x: x > 3, [1,2,3,4,5,4,3,2,1])
+[4, 5, 4]
+					</code></pre>
+        </section>	
+
+       <section>
+        <h2>Functional Programming: list comprehension</h2>
+ 					<pre><code data-trim contenteditable>
+>>> nums = [1,2,3,4,5,6]
+>>> plusOneNums = [x+1 for x in nums]
+>>> oddNums = [x for x in nums if x % 2 == 1]
+>>> oddNums
+[1,3,5]
+>>> oddNumsPlusOne = [x+1 for x in nums if x % 2 ==1]
+>>> oddNumsPlusOne
+[2,4,6]
+					</code></pre>
+        </section>	
+
+      <section>
+        <h2>Beware of Indentation!</h2>
+ 					<pre><code data-trim contenteditable>
+if 0 == 1: 
+    print 'We are in a world of arithmetic pain' 
+print 'Thank you for playing' 
+					</code></pre>
+ 					<pre><code data-trim contenteditable>
+if 0 == 1: 
+    print 'We are in a world of arithmetic pain' 
+    print 'Thank you for playing' 
+					</code></pre>
         </section>
 
       <section>
-        <h2>How can I distribute the GIS data? - Data Download</h2>
-           <ol>
-			<li class="fragment">Store a copy of data in a website and allow the users to download and process it by themselves.</li>
-			<li class="fragment">Easy, cheap</li>
-			<li class="fragment">However, you have to make sure you have the most recent data.</li>
-          </ol>
-      </section>
+        <h2>Functions</h2>
+ 					<pre><code data-trim contenteditable>
+fruitPrices = {'apples':2.00, 'oranges': 1.50, 'pears': 1.75}
+
+def buyFruit(fruit, numPounds):
+    if fruit not in fruitPrices:
+        print "Sorry we don't have %s" % (fruit)
+    else:
+        cost = fruitPrices[fruit] * numPounds
+        print "That'll be %f please" % (cost)
+
+# Main Function
+if __name__ == '__main__':        
+    buyFruit('apples',2.4)
+    buyFruit('coconuts',2)
+					</code></pre>
+ 					<pre><code data-trim contenteditable>
+[cs188-ta@nova ~]$ python fruit.py
+That'll be 4.800000 please
+Sorry we don't have coconuts
+					</code></pre>					
+        </section>
 
       <section>
-        <h2>GIS data formats for Data Download</h2>
-           <ol>
-			<li class="fragment">Point data: Shapefile, CSV, KML, KMZ, Excel, Access, file/personal geodatabase</li>
-			<li class="fragment">Line data: Shapefile, file/personal geodatabase, ArcInfo E00, Auto CAD dxf, etc.</li>
-			<li class="fragment">Polygon data: Shapefile, file/personal geodatabase, ArcInfo E00, etc.</li>
-          </ol>
-      </section>
-	  
-      <section>
-        <h2>How can I distribute the GIS data? - Web Services</h2>
-           <ol>
-			<li class="fragment">Publish the data as web services using GIS Servers, such as ArcGIS Server, GeoServer, MapServer and allow the users to access it by using GIS software or programming languages.</li>
-			<li class="fragment">No worry about the data update</li>
-			<li class="fragment">Higher expense on GIS Servers</li>
-			<li class="fragment">Requires the users have the software or skills to access the data</li>
-          </ol>
-      </section>
-
-     <section>
-        <h2>How can I distribute the GIS data? - Web Applications</h2>
-           <ol>
-			<li class="fragment">Build a web application which allows the users to access the data.</li>
-			<li class="fragment">No worry about the data update</li>
-			<li class="fragment">The users only need the web browsers to access the data</li>
-			<li class="fragment">Higher expense on GIS Servers</li>
-			<li class="fragment">Difficult to customize the applications according the users' requirements</li>
-          </ol>
-      </section>
-
-     <section>
-        <h2>Before you start to use the data, please remember to read the metadata</h2>
-		“A geospatial metadata record includes core library catalog elements such as Title, Abstract, and Publication Data; geographic elements such as Geographic Extent and Projection Information; and database elements such as Attribute Label Definitions and Attribute Domain Values.“ (FGDC)
-      </section>
-
-      <section>
-        <h2>Different users may have the same data with different spatial accuracy, fields, records</h2>
-		<img height="300" src="images/access.jpg">
-      </section>
-
-	  <section>
-        <h2>Like a human being, data has its own life cycle</h2>
-		<img height="400" src="images/lifecycle11.png">
-      </section>
-
-	  <section>
-        <h2>Copy Right and Disclaimer</h2>
-		<img height="250" src="images/copyright.jpg">
-		<img height="250" src="images/disclaimer-clipart-disclaimer-with-magnifying-glass.svg">	
-      </section>
-
-	  <section>
-        <h2>Open Data</h2>
-			“Open data is the idea that certain data should be freely available to everyone to use and republish as they wish, without restrictions from copyright, patents or other mechanisms of control.” ( http://en.wikipedia.org/wiki/Open_data)
-			<img height="150" src="images/Open_Data.png">			
-      </section>
-
-	  <section>
-        <h2>Open Data Websites</h2>
-          <ol>
-			<li class="fragment">Data.gov - U.S. government open-data website. Launched in May 2009.</li>
-			<li class="fragment">Data.gc.ca - Canadian government open-data website. Launched in March 2011.</li>
-			<li class="fragment">Ontario Open Data (http://www.ontario.ca/government/open-data-ontario)</li>
-			<li class="fragment">Toronto Open Data (toronto.ca/open)</li>
-          </ol>		
-      </section>
-
- 	  <section>
-        <h2>Demo</h2>
-			<img height="150" src="images/DemoStampRotate01-e1400242575670.png">			
-      </section>
- 
-
+        <h2>Python Courses @ Edx and Coursera</h2>
+          <ul>
+			<li><a href="https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-0#.VOs_7fneOUk">Edx: Introduction to Computer Science and Programming Using Python</a></li>
+            <li>Coursera: An Introduction to Interactive Programming in Python <a href="https://www.coursera.org/course/interactivepython1">(Part 1)</a>, <a href="https://www.coursera.org/course/principlescomputing2">(Part 2)</a></li>
+          </ul>	
+        </section>
+		
+        <section>
+          <h2>ArcPy: Overview (ESRI)</h2>
+          <ul>
+			<li>"ArcPy is a site package that builds on (and is a successor to) the successful arcgisscripting module. Its goal is to create the cornerstone for a useful and productive way to perform geographic data analysis, data conversion, data management, and map automation with Python."</li>
+			<li>"ArcPy provides access to geoprocessing tools as well as additional functions, classes, and modules that allow you to create simple or complex workflows quickly and easily."</li>
+          </ul>	
+        </section>
+		
+        <section>
+          <h2>ArcPy vs. Modelbuilder</h2>
+          <ul>
+			<li>Pro: You can use if/then/else and loop control structures and data structures, e.g. list/tuple/set/dictionary in your scripts.</li>
+			<li>Pro: You can have the freedom to control your scripts to do what you want to do.</li>
+			<li>Con: A relatively steep learning curve and not as visible as Models built from Modelbuilder.</li>
+          </ul>	
+		  <br><br>You can convert the models built by Modelbuilder to a Python Script. 
+        </section>
 	  
       </div>
 
