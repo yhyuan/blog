@@ -98,16 +98,18 @@
 			<li>An Overview of Python</li>
             <li>Data types</li>
             <li>Control Structures</li>
-			<li>Function</li>
+			<li>Functions</li>
+			<li>Object-Oriented Programming</li>
           </ul>
 		  <p></p>
 		  <h3>Introduction to ArcPy - 45 minutes</h3>
           <ul>
 			<li>An Overview of ArcPy</li>
-            <li>Modelbuilder vs. ArcPy</li>
-            <li>Control Structures</li>
-			<li>Function</li>
-          </ul>		  
+            <li>ModelBuilder vs. ArcPy</li>
+            <li>Describe, List Functions</li>
+			<li>Selections, Cursors, Geometric Objects</li>
+          </ul>
+		  <h3>ArcPy Case Study - 10 minutes</h3>
         </section>
 		
         <section>
@@ -394,6 +396,90 @@ Sorry we don't have coconuts
         </section>
 
       <section>
+        <h2>Object-Oriented Programming in Python</h2>
+		Save the following code in shop.py.
+ 					<pre><code data-trim contenteditable>
+class FruitShop:
+
+    def __init__(self, name, fruitPrices):
+        """
+            name: Name of the fruit shop
+            
+            fruitPrices: Dictionary with keys as fruit 
+            strings and prices for values e.g. 
+            {'apples':2.00, 'oranges': 1.50, 'pears': 1.75} 
+        """
+        self.fruitPrices = fruitPrices
+        self.name = name
+        print 'Welcome to the %s fruit shop' % (name)
+        
+    def getCostPerPound(self, fruit):
+        """
+            fruit: Fruit string
+        Returns cost of 'fruit', assuming 'fruit'
+        is in our inventory or None otherwise
+        """
+        if fruit not in self.fruitPrices:
+            print "Sorry we don't have %s" % (fruit)
+            return None
+        return self.fruitPrices[fruit]
+        
+    def getPriceOfOrder(self, orderList):
+        """
+            orderList: List of (fruit, numPounds) tuples
+            
+        Returns cost of orderList. If any of the fruit are  
+        """ 
+        totalCost = 0.0             
+        for fruit, numPounds in orderList:
+            costPerPound = self.getCostPerPound(fruit)
+            if costPerPound != None:
+                totalCost += numPounds * costPerPound
+        return totalCost
+    
+    def getName(self):
+        return self.name
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>Object-Oriented Programming in Python</h2>
+		Save the following code in shopTest.py
+ 					<pre><code data-trim contenteditable>
+import shop
+
+shopName = 'the Berkeley Bowl'
+fruitPrices = {'apples': 1.00, 'oranges': 1.50, 'pears': 1.75}
+berkeleyShop = shop.FruitShop(shopName, fruitPrices)
+applePrice = berkeleyShop.getCostPerPound('apples')
+print applePrice
+print('Apples cost $%.2f at %s.' % (applePrice, shopName))
+
+otherName = 'the Stanford Mall'
+otherFruitPrices = {'kiwis':6.00, 'apples': 4.50, 'peaches': 8.75}
+otherFruitShop = shop.FruitShop(otherName, otherFruitPrices)
+otherPrice = otherFruitShop.getCostPerPound('apples')
+print otherPrice
+print('Apples cost $%.2f at %s.' % (otherPrice, otherName))
+print("My, that's expensive!")
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>Object-Oriented Programming in Python</h2>
+ 					<pre><code data-trim contenteditable>
+[cs188-ta@nova ~]$ python shopTest.py
+Welcome to the Berkeley Bowl fruit shop
+1.0
+Apples cost $1.00 at the Berkeley Bowl.
+Welcome to the Stanford Mall fruit shop
+4.5
+Apples cost $4.50 at the Stanford Mall.
+My, that's expensive!
+					</code></pre>					
+        </section>
+		
+      <section>
         <h2>Python Courses @ Edx and Coursera</h2>
           <ul>
 			<li><a href="https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-0#.VOs_7fneOUk">Edx: Introduction to Computer Science and Programming Using Python</a></li>
@@ -410,15 +496,451 @@ Sorry we don't have coconuts
         </section>
 		
         <section>
-          <h2>ArcPy vs. Modelbuilder</h2>
+          <h2>Differences between ArcPy and ModelBuilder</h2>
           <ul>
-			<li>Pro: You can use if/then/else and loop control structures and data structures, e.g. list/tuple/set/dictionary in your scripts.</li>
-			<li>Pro: You can have the freedom to control your scripts to do what you want to do.</li>
-			<li>Con: A relatively steep learning curve and not as visible as Models built from Modelbuilder.</li>
+			<li>You can use if/then/else and loop control structures and data structures, e.g. list/tuple/set/dictionary in your scripts.</li>
+			<li>You can have the freedom to control your scripts to do what you want to do.</li>
+			<li>However, A relatively steep learning curve and not as visible as Models built from ModelBuilder.</li>
           </ul>	
-		  <br><br>You can convert the models built by Modelbuilder to a Python Script. 
+		  <br><br>You can convert the models built by ModelBuilder to a Python Script. 
         </section>
-	  
+		
+        <section>
+          <h2>ArcPy: Functions and classes</h2>
+		  <img height="350" src="images/ArcPyFunctionsClasses.png">
+        </section>
+		
+        <section>
+          <h2>ArcPy: modules</h2>
+          <ul>
+			<li>Data Access module: arcpy.da</li>
+			<li>Mapping module: arcpy.mapping</li>
+			<li>Network Analyst module: arcpy.na</li>
+			<li>Spatial Analyst module: arcpy.sa</li>
+			<li>Time module: arcpy.time</li>
+          </ul>	
+        </section>
+      <section>
+        <h2>Your First ArcPy Script</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+arcpy.env.workspace = r'C:\GIS\Corvallis.gdb'
+arcpy.env.overwriteOutput = True
+arcpy.Buffer_analysis("Schools", "BuffSchools1000", "1000 feet")
+
+print "Script completed"
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>ArcPy: Describe function</h2>
+		returns an object that contains various properties on the data element being described.<br><br>
+		The data elements can be geodatabases, feature classes, tables, rasters, network datasets, topology, geometric networks, shapefiles, toolboxes/tools, folders, coverages, layer files, map documents, etc.
+        </section>
+
+      <section>
+        <h2>ArcPy: Describe function</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+arcpy.env.workspace = r'C:\GIS\Corvallis.gdb'
+desc = arcpy.Describe("Schools")
+print "Name: {} Shape: {}".format(desc.name, desc.shapeType)
+for fld in desc.fields:
+     print "\t{}".format(fld.name)
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>ArcPy: List function</h2>
+		returns Python lists for different types of data.<br><br>
+		The List functions can provide you with a list of feature class names in a geodatabase, shapefile names in a system folder, table names in a geodatabase, field names in a table or feature class, etc.
+        </section>
+
+      <section>
+        <h2>ArcPy: List function</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+arcpy.env.workspace = r'C:\GIS\Corvallis.gdb'
+field_list = arcpy.ListFields("Schools")
+for fld in field_list:
+     print "\t{}".format(fld.name)
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>ArcPy: Working with Selection</h2>
+		Create a subset of data by making a feature layer in memory, optionally applying a SQL expression and/or a FieldInfo object to alter the schema, and them copy the feature layer to a new feature class. 
+        </section>
+
+      <section>
+        <h2>ArcPy: Working with Selection</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+arcpy.env.workspace = r'C:\GIS\Corvallis.gdb'
+newField1 = arcpy.AddFieldDelimiters(arcpy.env.workspace, "LEVEL_")
+SQLExp = newField1 + " = " + " 'E' "
+arcpy.MakeFeatureLayer_management("Schools", "SchoolsLyr", SQLExp)
+arcpy.CopyFeatures_management("SchoolsLyr", "newSchools")
+arcpy.Delete_management("SchoolsLyr")
+
+					</code></pre>					
+        </section>
+		
+      <section>
+        <h2>ArcPy: Working with Cursors</h2>
+		A cursor is a data access object that can be used to iterator over a set of data in a table or insert new rows into a table. <br><br>
+		you can use da cursors to read, update, and populate feature classes and tables. 
+        </section>
+
+      <section>
+        <h2>ArcPy: Working with Cursors</h2>
+				  <img height="350" src="images/daCursor.png">
+	  </section>
+		
+      <section>
+        <h2>ArcPy: Working with Cursors</h2>
+				  <img height="450" src="images/CursorMethods.png">
+	  </section>
+
+      <section>
+        <h2>ArcPy: da.SearchCursor</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+fc = "c:/GIS/Corvallis.gdb/Schools"
+fields = ["LEVEL_", "SCHOOL_NAM", "SHAPE@XY"]
+
+with arcpy.da.SearchCursor(fc, fields) as cursor:
+    for row in cursor:
+        print("{0}, {1}, {2}".format(row[0], row[1], row[2]))
+
+					</code></pre>					
+        </section>
+
+     <section>
+        <h2>ArcPy: da.UpdateCursor</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+fc = "c:/GIS/Corvallis.gdb/Schools"
+fields = ["LEVEL_", "SCHOOL_NAM"]
+with arcpy.da.UpdateCursor(fc, fields) as cursor:
+    for row in cursor:
+        if (row[0] == 'C'):
+            row[1] = row[1] + " (College)"
+        elif (row[0] == 'E'):
+            row[1] = row[1] + " (Elementary)"
+        elif (row[0] == 'H'):
+            row[1] = row[1] + " (High)"
+        elif (row[0] == 'M'):
+            row[1] = row[1] + " (Intermediate)"
+
+        # Update the cursor with the updated list
+        #
+        cursor.updateRow(row)
+					</code></pre>					
+        </section>
+
+     <section>
+        <h2>ArcPy: da.InsertCursor</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+
+# A list of values that will be used to construct new rows
+#
+row_values = [(17, 'H', 'Anderson High School', (1294863.528, 340045.172)),
+              (18, 'C', 'Anderson College', (1294163.528, 340945.172))]
+cursor = arcpy.da.InsertCursor("c:/GIS/Corvallis.gdb/Schools",
+                               ("ID", "LEVEL_", "SCHOOL_NAM", "LOCATION", "PHONE", "SHAPE@XY"))
+for row in row_values:
+    cursor.insertRow(row)
+
+del cursor
+					</code></pre>					
+        </section>
+
+      <section>
+        <h2>ArcPy: Working with Geometry objects</h2>
+		 <img height="350" src="images/geometricobjects.png">
+        </section>
+
+    <section>
+        <h2>ArcPy: Creating Point objects</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+pnt = arcpy.Point()
+pnt.X = -98.36
+pnt.Y = 29.56
+print "X: {0}, Y: {1}".format(pnt.X, pnt.Y)
+
+pnt = arcpy.Point(-98.36, 29.56)
+print "X: {0}, Y: {1}".format(pnt.X, pnt.Y)
+					</code></pre>					
+        </section>
+
+    <section>
+        <h2>ArcPy: Creating Polyline objects</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+pnt = arcpy.Point()
+ary = arcpy.Array()
+coordList = [[100, 100], [200, 200], [300, 100]]
+for coord in coordList:
+     pnt.X = coord[0]
+	 pnt.Y = coord[1]
+	 ary.add(pnt)
+polyline = arcpy.Polyline(ary)
+print "Point count: {0}".format(polyline.pointCount)
+					</code></pre>					
+        </section>
+
+    <section>
+        <h2>ArcPy: Creating Polygon objects</h2>
+ 					<pre><code data-trim contenteditable>
+import arcpy
+pnt = arcpy.Point()
+ary = arcpy.Array()
+coordList = [[100, 100], [200, 200], [300, 100]]
+for coord in coordList:
+     pnt.X = coord[0]
+	 pnt.Y = coord[1]
+	 ary.add(pnt)
+polyline = arcpy.Polygon(ary)
+print "Point count: {0}".format(polyline.pointCount)
+					</code></pre>					
+        </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner Program</h2>
+		The Ontario Lake Partner Program (LPP) provides total phosphorus concentrations and water transparency (using a Secchi disc) data for Ontario’s inland lakes. The data is collected through volunteer monitoring efforts.
+		<br><br>
+		The data is available in two Excel files: One for Secchi Depth and One for Total Phosphorus. 
+    </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+		<img height="350" src="images/LakePartnerTP.png">
+		<img height="350" src="images/LakePartnerSecciDepth.png">
+    </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+		We want to generate three feature classes from these two Excel files.
+          <ul>
+			<li>Sampling locations (Stations): Lake Name, Township, STN, Site ID, Site Description, latitude, longitude</li>
+			<li>Secchi Depth: Year, Secchi Depth</li>
+			<li>Total Phosphorus: Date, TP1, TP2</li>
+          </ul>			
+    </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+import xlrd, arcpy, string, os, zipfile, fileinput, time
+from datetime import date
+start_time = time.time()
+
+INPUT_PATH = "input"
+OUTPUT_PATH = "output"
+if arcpy.Exists(OUTPUT_PATH + "\\LakePartner.gdb"):
+	os.system("rmdir " + OUTPUT_PATH + "\\LakePartner.gdb /s /q")
+os.system("del " + OUTPUT_PATH + "\\*LakePartner*.*")
+arcpy.CreateFileGDB_management(OUTPUT_PATH, "LakePartner", "9.3")
+arcpy.env.workspace = OUTPUT_PATH + "\\LakePartner.gdb"
+					</code></pre>					
+        </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+def parseLatLng(latlng):
+	if len(str(latlng).strip()) == 0:
+		return 0
+	latlngInt = int(latlng)
+	degree = int(latlngInt / 10000)
+	temp = latlngInt - degree * 10000
+	minute = int(temp / 100)
+	second = int(temp - minute * 100)
+	return degree + (minute/60.0) + (second/3600.0)
+def parseValue(value):
+	if len(str(value).strip()) == 0:
+		return None
+	return value
+					</code></pre>					
+        </section>
+
+    <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+def createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields):
+	print "Create " + featureName + " feature class"
+	featureNameNAD83 = featureName + "_NAD83"
+	featureNameNAD83Path = arcpy.env.workspace + "\\"  + featureNameNAD83
+	arcpy.CreateFeatureclass_management(arcpy.env.workspace, featureNameNAD83, "POINT", "", "DISABLED", "DISABLED", "", "", "0", "0", "0")
+	# Process: Define Projection
+	arcpy.DefineProjection_management(featureNameNAD83Path, "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
+	# Process: Add Fields	
+	for featrueField in featureFieldList:
+		arcpy.AddField_management(featureNameNAD83Path, featrueField[0], featrueField[1], featrueField[2], featrueField[3], featrueField[4], featrueField[5], featrueField[6], featrueField[7], featrueField[8])
+	# Process: Append the records
+	cntr = 1
+	try:
+		with arcpy.da.InsertCursor(featureNameNAD83, featureInsertCursorFields) as cur:
+			for rowValue in featureData:
+				cur.insertRow(rowValue)
+				cntr = cntr + 1
+	except Exception as e:
+		print "\tError: " + featureName + ": " + e.message
+	# Change the projection to web mercator
+	arcpy.Project_management(featureNameNAD83Path, arcpy.env.workspace + "\\" + featureName, "PROJCS['WGS_1984_Web_Mercator_Auxiliary_Sphere',GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Mercator_Auxiliary_Sphere'],PARAMETER['False_Easting',0.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',0.0],PARAMETER['Standard_Parallel_1',0.0],PARAMETER['Auxiliary_Sphere_Type',0.0],UNIT['Meter',1.0]]", "NAD_1983_To_WGS_1984_5", "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
+	arcpy.Delete_management(featureNameNAD83Path, "FeatureClass")
+	print "Finish " + featureName + " feature class."
+
+					</code></pre>					
+        </section>
+
+   <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+stationsDict = {}
+TPCountDict = {}
+featureName = "TotalPhosphorus"
+featureData = []
+wb = xlrd.open_workbook('input\\TP for annual report for the web 2013.xls')
+sh = wb.sheet_by_name(u'LPP TP Data 2013')
+startRowNum = 8; # start with 0
+for rownum in range(startRowNum, sh.nrows):
+	row = sh.row_values(rownum)
+	STN = int(row[2])
+	SITEID = int(row[3])
+	Date_ = row[7]
+	TP1 = parseValue(row[8])
+	TP2 = parseValue(row[9])
+	DataCollector = row[10]  # unicode
+	MajorDifference = row[11]  # str
+	ID = STN * 10000 + SITEID
+	if ID in TPCountDict:
+		TPCountDict[ID] = TPCountDict[ID] + 1
+	else:
+		TPCountDict[ID] = 1
+	stationsDict[ID] = row
+	Latitude = parseLatLng(row[5])
+	Longitude = -parseLatLng(row[6])
+	featureData.append([(Longitude, Latitude), STN, SITEID, Date_, TP1, TP2, DataCollector, MajorDifference, ID, Latitude, Longitude])
+featureFieldList = [["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Date_", "DATE", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["TP1", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TP2", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["DataCollector", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["MajorDifference", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
+featureInsertCursorFields = ("SHAPE@XY", "STN", "SITEID", "Date_", "TP1", "TP2", "DataCollector", "MajorDifference", "ID", "Latitude", "Longitude")
+createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
+					</code></pre>					
+        </section>
+
+   <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+featureName = "SecchiDepth"
+SECountDict = {}
+featureData = []
+wb = xlrd.open_workbook('input\\Average Secchi data for annual report 2013.xls')
+sh = wb.sheet_by_name(u'LPP Secchi Data 2013')
+startRowNum = 2; # start with 0
+for rownum in range(startRowNum, sh.nrows):
+	row = sh.row_values(rownum)
+	STN = int(row[2])
+	SITEID = int(row[3])
+	Year_ = int(row[7])
+	SecchiDepth = parseValue(row[8])
+	ID = STN * 10000 + SITEID
+	if ID in SECountDict:
+        SECountDict[ID] = SECountDict[ID] + 1
+	else:
+        SECountDict[ID] = 1	
+	stationsDict[ID] = row
+	Latitude = parseLatLng(row[5])
+	Longitude = -parseLatLng(row[6])
+	featureData.append([(Longitude, Latitude), STN, SITEID, Year_, SecchiDepth, ID, Latitude, Longitude])
+featureFieldList = [["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Year_", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SecchiDepth", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
+featureInsertCursorFields = ("SHAPE@XY", "STN", "SITEID", "Year_", "SecchiDepth", "ID", "Latitude", "Longitude")
+createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
+					</code></pre>					
+        </section>
+
+   <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+featureName = "LAKE_PARTNERS_STATIONS"
+featureData = []
+for ID in stationsDict.keys():
+	row = stationsDict[ID]
+	STN = int(row[2])
+	SITEID = int(row[3])
+	ID = STN * 10000 + SITEID
+	LAKENAME = row[0]
+	TOWNSHIP = row[1]
+	SITEDESC = row[4]
+	Latitude = parseLatLng(row[5])
+	Longitude = -parseLatLng(row[6])
+	SE_COUNT = SECountDict[ID] if ID in SECountDict else 0
+	PH_COUNT = TPCountDict[ID] if ID in TPCountDict else 0	
+	featureData.append([(Longitude, Latitude), ID, LAKENAME, TOWNSHIP, STN, SITEID, SITEDESC, Latitude, Longitude, SE_COUNT, PH_COUNT])	
+featureFieldList = [["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["LAKENAME", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TOWNSHIP", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEDESC", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["LATITUDE", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["LONGITUDE", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["SE_COUNT", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["PH_COUNT", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""]]
+featureInsertCursorFields = ("SHAPE@XY", "ID", "LAKENAME", "TOWNSHIP", "STN", "SITEID", "SITEDESC", "LATITUDE", "LONGITUDE", "SE_COUNT", "PH_COUNT")
+createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
+					</code></pre>					
+        </section>
+
+   <section>
+        <h2>ArcPy Case Study: Lake Partner</h2>
+ 					<pre><code data-trim contenteditable>
+os.system("copy " + INPUT_PATH + "\\LakePartner.msd " + OUTPUT_PATH)
+os.system("copy " + INPUT_PATH + "\\LakePartner.mxd " + OUTPUT_PATH)
+f = open (INPUT_PATH + "\\readme_LakePartner.txt","r")
+data = f.read()
+f.close()
+import time
+dateString = time.strftime("%Y/%m/%d", time.localtime())
+data = data.replace("[DATE]", dateString)
+f = open (OUTPUT_PATH + "\\readme_LakePartner.txt","w")
+f.write(data)
+f.close()
+
+# Compress the msd, mxd, readme.txt and file geodatabase together into a zip file named LakePartner.zip, which will be send to web service publisher. 
+
+target_dir = OUTPUT_PATH + '\\LakePartner.gdb'
+zip = zipfile.ZipFile(OUTPUT_PATH + '\\LakePartner.zip', 'w', zipfile.ZIP_DEFLATED)
+rootlen = len(target_dir) + 1
+for base, dirs, files in os.walk(target_dir):
+   for file in files:
+      fn = os.path.join(base, file)
+      zip.write(fn, "LakePartner.gdb\\" + fn[rootlen:])
+zip.write(OUTPUT_PATH + '\\LakePartner.msd', "LakePartner.msd")
+zip.write(OUTPUT_PATH + '\\LakePartner.mxd', "LakePartner.mxd")
+zip.write(OUTPUT_PATH + '\\readme_LakePartner.txt', "readme_LakePartner.txt")
+zip.close()
+
+# Remove the msd, mxd, readme.txt and file geodatabase. 
+os.system("del " + OUTPUT_PATH + "\\LakePartner.msd")
+os.system("del " + OUTPUT_PATH + "\\LakePartner.mxd")
+os.system("del " + OUTPUT_PATH + "\\readme_LakePartner.txt")
+os.system("rmdir " + OUTPUT_PATH + "\\LakePartner.gdb /s /q")
+
+
+elapsed_time = time.time() - start_time
+print elapsed_time
+					</code></pre>					
+        </section>
+		
+        <section>
+          <h2>Python Common Syntax Errors (ESRI)</h2>
+          <ul>
+			<li>Spelling mistakes;</li>
+			<li>Case sensitivity of variable names (e.g. myData is not the same as MyData)</li>
+			<li>Path separators - either use two(\\), one(/), or user a lower-case r in front of the path containing a single (\)</li>
+			<li>Missing colons on if-else, for-in, nd while statements</li>
+			<li>Improper indentation</li>
+			<li>Conditional evaluation (==) versus assignment(=)</li>
+          </ul>	
+        </section>
+		
+        <section>
+          <h2>Q/A</h2>
+        </section>		
       </div>
 
     </div>
