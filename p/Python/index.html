@@ -684,9 +684,9 @@ pnt = arcpy.Point()
 ary = arcpy.Array()
 coordList = [[100, 100], [200, 200], [300, 100]]
 for coord in coordList:
-     pnt.X = coord[0]
-	 pnt.Y = coord[1]
-	 ary.add(pnt)
+  pnt.X = coord[0]
+  pnt.Y = coord[1]
+  ary.add(pnt)
 polyline = arcpy.Polyline(ary)
 print "Point count: {0}".format(polyline.pointCount)
 					</code></pre>					
@@ -700,9 +700,9 @@ pnt = arcpy.Point()
 ary = arcpy.Array()
 coordList = [[100, 100], [200, 200], [300, 100]]
 for coord in coordList:
-     pnt.X = coord[0]
-	 pnt.Y = coord[1]
-	 ary.add(pnt)
+  pnt.X = coord[0]
+  pnt.Y = coord[1]
+  ary.add(pnt)
 polyline = arcpy.Polygon(ary)
 print "Point count: {0}".format(polyline.pointCount)
 					</code></pre>					
@@ -752,18 +752,18 @@ arcpy.env.workspace = OUTPUT_PATH + "\\LakePartner.gdb"
         <h2>ArcPy Case Study: Lake Partner</h2>
  					<pre><code data-trim contenteditable>
 def parseLatLng(latlng):
-	if len(str(latlng).strip()) == 0:
-		return 0
-	latlngInt = int(latlng)
-	degree = int(latlngInt / 10000)
-	temp = latlngInt - degree * 10000
-	minute = int(temp / 100)
-	second = int(temp - minute * 100)
-	return degree + (minute/60.0) + (second/3600.0)
+  if len(str(latlng).strip()) == 0:
+    return 0
+  latlngInt = int(latlng)
+  degree = int(latlngInt / 10000)
+  temp = latlngInt - degree * 10000
+  minute = int(temp / 100)
+  second = int(temp - minute * 100)
+  return degree + (minute/60.0) + (second/3600.0)
 def parseValue(value):
-	if len(str(value).strip()) == 0:
-		return None
-	return value
+  if len(str(value).strip()) == 0:
+    return None
+  return value
 					</code></pre>					
         </section>
 
@@ -771,28 +771,27 @@ def parseValue(value):
         <h2>ArcPy Case Study: Lake Partner</h2>
  					<pre><code data-trim contenteditable>
 def createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields):
-	print "Create " + featureName + " feature class"
-	featureNameNAD83 = featureName + "_NAD83"
-	featureNameNAD83Path = arcpy.env.workspace + "\\"  + featureNameNAD83
-	arcpy.CreateFeatureclass_management(arcpy.env.workspace, featureNameNAD83, "POINT", "", "DISABLED", "DISABLED", "", "", "0", "0", "0")
-	# Process: Define Projection
-	arcpy.DefineProjection_management(featureNameNAD83Path, "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
-	# Process: Add Fields	
-	for featrueField in featureFieldList:
-		arcpy.AddField_management(featureNameNAD83Path, featrueField[0], featrueField[1], featrueField[2], featrueField[3], featrueField[4], featrueField[5], featrueField[6], featrueField[7], featrueField[8])
-	# Process: Append the records
-	cntr = 1
-	try:
-		with arcpy.da.InsertCursor(featureNameNAD83, featureInsertCursorFields) as cur:
-			for rowValue in featureData:
-				cur.insertRow(rowValue)
-				cntr = cntr + 1
-	except Exception as e:
-		print "\tError: " + featureName + ": " + e.message
-	# Change the projection to web mercator
-	arcpy.Project_management(featureNameNAD83Path, arcpy.env.workspace + "\\" + featureName, "PROJCS['WGS_1984_Web_Mercator_Auxiliary_Sphere',GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Mercator_Auxiliary_Sphere'],PARAMETER['False_Easting',0.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',0.0],PARAMETER['Standard_Parallel_1',0.0],PARAMETER['Auxiliary_Sphere_Type',0.0],UNIT['Meter',1.0]]", "NAD_1983_To_WGS_1984_5", "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
-	arcpy.Delete_management(featureNameNAD83Path, "FeatureClass")
-	print "Finish " + featureName + " feature class."
+  print "Create " + featureName + " feature class"
+  featureNameNAD83 = featureName + "_NAD83"
+  featureNameNAD83Path = arcpy.env.workspace + "\\"  + featureNameNAD83
+  arcpy.CreateFeatureclass_management(arcpy.env.workspace, featureNameNAD83, "POINT", "", "DISABLED", "DISABLED", "", "", "0", "0", "0")
+
+  arcpy.DefineProjection_management(featureNameNAD83Path, "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
+
+  for featrueField in featureFieldList:
+    arcpy.AddField_management(featureNameNAD83Path, featrueField[0], featrueField[1], featrueField[2], featrueField[3], featrueField[4], featrueField[5], featrueField[6], featrueField[7], featrueField[8])
+  cntr = 1
+  try:
+    with arcpy.da.InsertCursor(featureNameNAD83, featureInsertCursorFields) as cur:
+      for rowValue in featureData:
+        cur.insertRow(rowValue)
+        cntr = cntr + 1
+  except Exception as e:
+    print "\tError: " + featureName + ": " + e.message
+
+  arcpy.Project_management(featureNameNAD83Path, arcpy.env.workspace + "\\" + featureName, "PROJCS['WGS_1984_Web_Mercator_Auxiliary_Sphere',GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Mercator_Auxiliary_Sphere'],PARAMETER['False_Easting',0.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',0.0],PARAMETER['Standard_Parallel_1',0.0],PARAMETER['Auxiliary_Sphere_Type',0.0],UNIT['Meter',1.0]]", "NAD_1983_To_WGS_1984_5", "GEOGCS['GCS_North_American_1983',DATUM['D_North_American_1983',SPHEROID['GRS_1980',6378137.0,298.257222101]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]")
+  arcpy.Delete_management(featureNameNAD83Path, "FeatureClass")
+  print "Finish " + featureName + " feature class."
 
 					</code></pre>					
         </section>
@@ -808,23 +807,23 @@ wb = xlrd.open_workbook('input\\TP for annual report for the web 2013.xls')
 sh = wb.sheet_by_name(u'LPP TP Data 2013')
 startRowNum = 8; # start with 0
 for rownum in range(startRowNum, sh.nrows):
-	row = sh.row_values(rownum)
-	STN = int(row[2])
-	SITEID = int(row[3])
-	Date_ = row[7]
-	TP1 = parseValue(row[8])
-	TP2 = parseValue(row[9])
-	DataCollector = row[10]  # unicode
-	MajorDifference = row[11]  # str
-	ID = STN * 10000 + SITEID
-	if ID in TPCountDict:
-		TPCountDict[ID] = TPCountDict[ID] + 1
-	else:
-		TPCountDict[ID] = 1
-	stationsDict[ID] = row
-	Latitude = parseLatLng(row[5])
-	Longitude = -parseLatLng(row[6])
-	featureData.append([(Longitude, Latitude), STN, SITEID, Date_, TP1, TP2, DataCollector, MajorDifference, ID, Latitude, Longitude])
+  row = sh.row_values(rownum)
+  STN = int(row[2])
+  SITEID = int(row[3])
+  Date_ = row[7]
+  TP1 = parseValue(row[8])
+  TP2 = parseValue(row[9])
+  DataCollector = row[10]  # unicode
+  MajorDifference = row[11]  # str
+  ID = STN * 10000 + SITEID
+  if ID in TPCountDict:
+    TPCountDict[ID] = TPCountDict[ID] + 1
+  else:
+    TPCountDict[ID] = 1
+  stationsDict[ID] = row
+  Latitude = parseLatLng(row[5])
+  Longitude = -parseLatLng(row[6])
+  featureData.append([(Longitude, Latitude), STN, SITEID, Date_, TP1, TP2, DataCollector, MajorDifference, ID, Latitude, Longitude])
 featureFieldList = [["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Date_", "DATE", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["TP1", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TP2", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["DataCollector", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["MajorDifference", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
 featureInsertCursorFields = ("SHAPE@XY", "STN", "SITEID", "Date_", "TP1", "TP2", "DataCollector", "MajorDifference", "ID", "Latitude", "Longitude")
 createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
@@ -841,20 +840,20 @@ wb = xlrd.open_workbook('input\\Average Secchi data for annual report 2013.xls')
 sh = wb.sheet_by_name(u'LPP Secchi Data 2013')
 startRowNum = 2; # start with 0
 for rownum in range(startRowNum, sh.nrows):
-	row = sh.row_values(rownum)
-	STN = int(row[2])
-	SITEID = int(row[3])
-	Year_ = int(row[7])
-	SecchiDepth = parseValue(row[8])
-	ID = STN * 10000 + SITEID
-	if ID in SECountDict:
-        SECountDict[ID] = SECountDict[ID] + 1
-	else:
-        SECountDict[ID] = 1	
-	stationsDict[ID] = row
-	Latitude = parseLatLng(row[5])
-	Longitude = -parseLatLng(row[6])
-	featureData.append([(Longitude, Latitude), STN, SITEID, Year_, SecchiDepth, ID, Latitude, Longitude])
+  row = sh.row_values(rownum)
+  STN = int(row[2])
+  SITEID = int(row[3])
+  Year_ = int(row[7])
+  SecchiDepth = parseValue(row[8])
+  ID = STN * 10000 + SITEID
+  if ID in SECountDict:
+    SECountDict[ID] = SECountDict[ID] + 1
+  else:
+    SECountDict[ID] = 1	
+  stationsDict[ID] = row
+  Latitude = parseLatLng(row[5])
+  Longitude = -parseLatLng(row[6])
+  featureData.append([(Longitude, Latitude), STN, SITEID, Year_, SecchiDepth, ID, Latitude, Longitude])
 featureFieldList = [["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Year_", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SecchiDepth", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["Latitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["Longitude", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""]]
 featureInsertCursorFields = ("SHAPE@XY", "STN", "SITEID", "Year_", "SecchiDepth", "ID", "Latitude", "Longitude")
 createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
@@ -867,18 +866,18 @@ createFeatureClass(featureName, featureData, featureFieldList, featureInsertCurs
 featureName = "LAKE_PARTNERS_STATIONS"
 featureData = []
 for ID in stationsDict.keys():
-	row = stationsDict[ID]
-	STN = int(row[2])
-	SITEID = int(row[3])
-	ID = STN * 10000 + SITEID
-	LAKENAME = row[0]
-	TOWNSHIP = row[1]
-	SITEDESC = row[4]
-	Latitude = parseLatLng(row[5])
-	Longitude = -parseLatLng(row[6])
-	SE_COUNT = SECountDict[ID] if ID in SECountDict else 0
-	PH_COUNT = TPCountDict[ID] if ID in TPCountDict else 0	
-	featureData.append([(Longitude, Latitude), ID, LAKENAME, TOWNSHIP, STN, SITEID, SITEDESC, Latitude, Longitude, SE_COUNT, PH_COUNT])	
+  row = stationsDict[ID]
+  STN = int(row[2])
+  SITEID = int(row[3])
+  ID = STN * 10000 + SITEID
+  LAKENAME = row[0]
+  TOWNSHIP = row[1]
+  SITEDESC = row[4]
+  Latitude = parseLatLng(row[5])
+  Longitude = -parseLatLng(row[6])
+  SE_COUNT = SECountDict[ID] if ID in SECountDict else 0
+  PH_COUNT = TPCountDict[ID] if ID in TPCountDict else 0	
+  featureData.append([(Longitude, Latitude), ID, LAKENAME, TOWNSHIP, STN, SITEID, SITEDESC, Latitude, Longitude, SE_COUNT, PH_COUNT])	
 featureFieldList = [["ID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["LAKENAME", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["TOWNSHIP", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["STN", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEID", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["SITEDESC", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["LATITUDE", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["LONGITUDE", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", ""], ["SE_COUNT", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""], ["PH_COUNT", "LONG", "", "", "", "", "NON_NULLABLE", "REQUIRED", ""]]
 featureInsertCursorFields = ("SHAPE@XY", "ID", "LAKENAME", "TOWNSHIP", "STN", "SITEID", "SITEDESC", "LATITUDE", "LONGITUDE", "SE_COUNT", "PH_COUNT")
 createFeatureClass(featureName, featureData, featureFieldList, featureInsertCursorFields)
