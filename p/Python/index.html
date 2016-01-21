@@ -649,7 +649,7 @@ import arcpy
 row_values = [(17, 'H', 'Anderson High School', (1294863.528, 340045.172)),
               (18, 'C', 'Anderson College', (1294163.528, 340945.172))]
 cursor = arcpy.da.InsertCursor("c:/GIS/Corvallis.gdb/Schools",
-                               ("ID", "LEVEL_", "SCHOOL_NAM", "LOCATION", "PHONE", "SHAPE@XY"))
+                               ("ID", "LEVEL_", "SCHOOL_NAM", "SHAPE@XY"))
 for row in row_values:
     cursor.insertRow(row)
 
